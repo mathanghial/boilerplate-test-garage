@@ -1,17 +1,17 @@
 'use client'
 
 
-import { useEffect, useState } from 'react'
-import Link from 'next/link'
-import { useRouter } from 'next/navigation'
-import { useForm } from 'react-hook-form'
-import { zodResolver } from '@hookform/resolvers/zod'
-import { toast } from 'sonner'
-import { ShieldCheck, ArrowRight, Eye, EyeOff, ShieldAlert } from 'lucide-react'
-import { useAuth } from '@/hooks/useAuth'
-import { loginSchema, type LoginInput } from '@/lib/validations/auth'
 import { FullPageSpinner } from '@/components/shared/LoadingSpinner'
 import { SocNetworkVisual } from '@/components/SocNetworkVisual'
+import { useAuth } from '@/hooks/useAuth'
+import { loginSchema, type LoginInput } from '@/lib/validations/auth'
+import { zodResolver } from '@hookform/resolvers/zod'
+import { ArrowRight, Eye, EyeOff, ShieldAlert, ShieldCheck } from 'lucide-react'
+import Link from 'next/link'
+import { useRouter } from 'next/navigation'
+import { useEffect, useState } from 'react'
+import { useForm } from 'react-hook-form'
+import { toast } from 'sonner'
 
 
 export default function SignInPage() {
@@ -29,7 +29,7 @@ export default function SignInPage() {
 
   useEffect(() => {
     if (!loading && user) {
-      router.replace('/dashboard')
+      router.replace('/team')
     }
   }, [loading, user, router])
 
@@ -46,7 +46,7 @@ export default function SignInPage() {
     try {
       await signInWithEmail(data.email, data.password)
       toast.success('Signed in successfully')
-      router.replace('/dashboard')
+      router.replace('/team')
       router.refresh()
     } catch (error: unknown) {
       if (error instanceof Error && error.message.includes('email-not-verified')) {
@@ -60,7 +60,7 @@ export default function SignInPage() {
   const handleGoogleSignIn = async () => {
   try {
     await signInWithGoogle()
-    router.replace('/dashboard')
+    router.replace('/team')
   } catch (error) {
     console.error('GOOGLE SIGN-IN ERROR:', error)
     toast.error('Google sign-in failed. Please try again.')
