@@ -292,6 +292,8 @@
 // }
 
 
+//import { SignOutButton } from '@/components/SignOutButton'
+import { SignOutButton } from '@/components/layout/SignOutButton'
 import { ArrowRight } from 'lucide-react'
 import type { Metadata } from 'next'
 import Image from 'next/image'
@@ -306,18 +308,18 @@ type TeamMember = {
   name: string
   role: string
   blurb: string
-  photo?: string
+  photo: string
   initials: string
 }
 
 const teamMembers: TeamMember[] = [
   {
     name: 'Ansh Anand Parekh',
-    role: 'BA',
+    role: 'Business Analyst',
     blurb:
       "Hi, I'm Ansh Anand Parekh, a final-year Computer Science student at RMIT University and the Business Analyst on the RMIT × Microsoft team. I'm passionate about translating business needs into clear technical requirements and making sure what we build actually solves the right problem for the people using it. I aspire to grow into a Business Analyst role within cybersecurity or cloud technology, helping bridge the gap between technical teams and real-world security impact.",
     photo: '/teamPhotos/Ansh.jpg',
-      initials: 'AP',
+    initials: 'AP',
   },
   {
     name: 'Hafsah Yasir',
@@ -331,7 +333,7 @@ const teamMembers: TeamMember[] = [
     name: 'Mathanghi Alahappan',
     role: 'Developer',
     blurb:
-      "Hi, I’m Mathanghi Alahappan, a Bachelor of Computer Science student at RMIT University and a Developer on the RMIT × Microsoft team. I’m passionate about software development, cybersecurity and artificial intelligence, and I enjoy building innovative digital solutions that solve real-world problems. I’m continuously developing my technical skills and exploring emerging technologies, with the goal of building a career in technology and creating meaningful real-world impact.",
+      'Hi, I’m Mathanghi Alahappan, a Bachelor of Computer Science student at RMIT University and a Developer on the RMIT × Microsoft team. I’m passionate about software development, cybersecurity and artificial intelligence, and I enjoy building innovative digital solutions that solve real-world problems. I’m continuously developing my technical skills and exploring emerging technologies, with the goal of building a career in technology and creating meaningful real-world impact.',
     photo: '/teamPhotos/Mathangi.png',
     initials: 'MA',
   },
@@ -341,7 +343,7 @@ const teamMembers: TeamMember[] = [
     blurb:
       "Hi, I'm Najmul Shakib Fahim, a Bachelor of Information Technology student at RMIT University and the UX Lead on the RMIT × Microsoft team. I'm passionate about human-centred design, usability, and exploring developments in defensive cybersecurity, and I love making sure what we build actually makes sense to the people using it. I aspire to become a DFIR analyst and contribute to developing effective defensive security solutions.",
     photo: '/teamPhotos/Najmul.png',
-      initials: 'NF',
+    initials: 'NF',
   },
   {
     name: 'Noor Marwaha',
@@ -355,10 +357,7 @@ const teamMembers: TeamMember[] = [
 
 function MicrosoftLogo() {
   return (
-    <span
-      className="grid h-4 w-4 grid-cols-2 gap-[1px]"
-      aria-hidden="true"
-    >
+    <span className="grid h-4 w-4 grid-cols-2 gap-[1px]" aria-hidden="true">
       <span className="bg-[#f25022]" />
       <span className="bg-[#7fba00]" />
       <span className="bg-[#00a4ef]" />
@@ -371,21 +370,15 @@ function TeamMemberCard({ member }: { member: TeamMember }) {
   return (
     <article className="group flex h-full flex-col rounded-xl border border-cyan-400/10 bg-[#091a2f] p-6 shadow-[0_16px_45px_rgba(0,0,0,0.2)] transition duration-200 hover:-translate-y-1 hover:border-teal-400/30">
       <div className="mb-5">
-        {member.photo ? (
-          <div className="relative h-20 w-20 overflow-hidden rounded-full border border-teal-400/25 bg-[#0b2840]">
-            <Image
-              src={member.photo}
-              alt={`${member.name} profile`}
-              fill
-              className="object-cover"
-              sizes="80px"
-            />
-          </div>
-        ) : (
-          <div className="flex h-20 w-20 items-center justify-center rounded-full border border-teal-400/30 bg-[#07324d] text-lg font-semibold text-teal-300">
-            {member.initials}
-          </div>
-        )}
+        <div className="relative h-20 w-20 overflow-hidden rounded-full border border-teal-400/25 bg-[#0b2840]">
+          <Image
+            src={member.photo}
+            alt={`${member.name} profile`}
+            fill
+            className="object-cover"
+            sizes="80px"
+          />
+        </div>
       </div>
 
       <div className="mb-4">
@@ -419,9 +412,8 @@ function TeamMemberCard({ member }: { member: TeamMember }) {
 export default function TeamPage() {
   return (
     <main className="min-h-screen bg-[#050b16] text-white">
-      {/* NAVIGATION */}
       <header className="sticky top-0 z-50 border-b border-white/[0.06] bg-[#050b16]/95 backdrop-blur">
-        <div className="mx-auto flex h-16 max-w-7xl items-center justify-between px-6 lg:px-10">
+        <div className="mx-auto flex min-h-16 max-w-7xl items-center justify-between gap-4 px-6 py-3 lg:px-10">
           <div className="flex items-center gap-3">
             <span className="rounded-sm bg-[#e61e3a] px-2 py-1 text-[10px] font-bold tracking-wide text-white">
               RMIT
@@ -432,7 +424,7 @@ export default function TeamPage() {
             </span>
           </div>
 
-          <nav className="flex items-center gap-4 text-xs text-slate-400 sm:gap-7">
+          <nav className="flex flex-wrap items-center justify-end gap-3 text-xs text-slate-400 sm:gap-6">
             <a
               href="#about"
               className="hidden transition hover:text-teal-300 sm:block"
@@ -460,15 +452,13 @@ export default function TeamPage() {
             >
               Go to tools
             </Link>
+
+            <SignOutButton />
           </nav>
         </div>
       </header>
 
-      {/* ABOUT */}
-      <section
-        id="about"
-        className="border-b border-white/[0.06]"
-      >
+      <section id="about" className="border-b border-white/[0.06]">
         <div className="mx-auto max-w-7xl px-6 py-16 lg:px-10 lg:py-20">
           <div className="max-w-3xl">
             <p className="mb-4 font-mono text-[11px] font-semibold tracking-[0.12em] text-teal-300 uppercase">
@@ -488,11 +478,7 @@ export default function TeamPage() {
         </div>
       </section>
 
-      {/* OUR STORY */}
-      <section
-        id="story"
-        className="border-b border-white/[0.06]"
-      >
+      <section id="story" className="border-b border-white/[0.06]">
         <div className="mx-auto grid max-w-7xl gap-10 px-6 py-14 lg:grid-cols-[0.32fr_0.68fr] lg:px-10 lg:py-16">
           <div>
             <p className="mb-3 font-mono text-[10px] font-semibold tracking-[0.12em] text-teal-300 uppercase">
@@ -524,11 +510,7 @@ export default function TeamPage() {
         </div>
       </section>
 
-      {/* TEAM */}
-      <section
-        id="team"
-        className="border-b border-white/[0.06]"
-      >
+      <section id="team" className="border-b border-white/[0.06]">
         <div className="mx-auto max-w-7xl px-6 py-14 lg:px-10 lg:py-16">
           <div className="mb-10">
             <p className="mb-3 font-mono text-[10px] font-semibold tracking-[0.12em] text-teal-300 uppercase">
@@ -557,7 +539,6 @@ export default function TeamPage() {
         </div>
       </section>
 
-      {/* FOOTER */}
       <footer className="bg-[#050b16]">
         <div className="mx-auto max-w-7xl px-6 py-12 lg:px-10">
           <div className="grid gap-10 border-b border-white/[0.06] pb-10 md:grid-cols-[1fr_auto_auto]">

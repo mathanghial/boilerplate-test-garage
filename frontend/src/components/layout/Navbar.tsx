@@ -1,9 +1,9 @@
 'use client'
 
+import { useAuth } from '@/hooks/useAuth'
+import { LogOut, User } from 'lucide-react'
 import Link from 'next/link'
 import { useRouter } from 'next/navigation'
-import { LogOut, User } from 'lucide-react'
-import { useAuth } from '@/hooks/useAuth'
 
 export function Navbar() {
   const router = useRouter()
