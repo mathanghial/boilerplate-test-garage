@@ -12,6 +12,9 @@ const securityHeaders = [
 ]
 
 const nextConfig: NextConfig = {
+  // Allows accessing the dev server from other devices on the local network
+  // (e.g. testing on a phone) without Next.js blocking HMR/font requests.
+  allowedDevOrigins: ['192.168.1.101'],
   async headers() {
     return [
       {

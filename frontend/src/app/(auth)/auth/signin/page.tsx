@@ -1,18 +1,16 @@
 'use client'
 
-
 import { FullPageSpinner } from '@/components/shared/LoadingSpinner'
 import { SocNetworkVisual } from '@/components/SocNetworkVisual'
 import { useAuth } from '@/hooks/useAuth'
 import { loginSchema, type LoginInput } from '@/lib/validations/auth'
 import { zodResolver } from '@hookform/resolvers/zod'
-import { ArrowRight, Eye, EyeOff, ShieldAlert, ShieldCheck } from 'lucide-react'
+import { ArrowRight, Eye, EyeOff, ShieldCheck } from 'lucide-react'
 import Link from 'next/link'
 import { useRouter } from 'next/navigation'
 import { useEffect, useState } from 'react'
 import { useForm } from 'react-hook-form'
 import { toast } from 'sonner'
-
 
 export default function SignInPage() {
   const router = useRouter()
@@ -58,28 +56,33 @@ export default function SignInPage() {
   }
 
   const handleGoogleSignIn = async () => {
-  try {
-    await signInWithGoogle()
-    router.replace('/team')
-  } catch (error) {
-    console.error('GOOGLE SIGN-IN ERROR:', error)
-    toast.error('Google sign-in failed. Please try again.')
+    try {
+      await signInWithGoogle()
+      router.replace('/dashboard')
+    } catch {
+      toast.error('Google sign-in failed. Please try again.')
+    }
   }
-}
 
   return (
     <div className="relative flex min-h-screen w-full flex-col overflow-x-hidden bg-[#050b16] lg:flex-row">
-      {/* Left panel — RMIT branding + SOC network visual (hidden on small screens) */}
+      {/* Left panel — RMIT + Microsoft branding, SOC network visual (hidden on small screens) */}
       <div className="relative hidden shrink-0 flex-col justify-between overflow-hidden border-white/5 p-10 lg:flex lg:w-1/2 lg:border-r xl:w-3/5">
         <div
           className="pointer-events-none absolute inset-0 bg-[radial-gradient(circle_at_50%_45%,rgba(14,165,233,0.12),transparent_60%)]"
           aria-hidden="true"
         />
-        <div className="relative flex items-center gap-3">
-          <span className="rounded-sm bg-red-600 px-2 py-1 text-xs font-bold tracking-wide text-white">
-          RMIT
-         </span>
-         <span className="text-sm text-zinc-400">University</span>
+        <div className="relative flex items-center justify-between">
+          <div className="flex items-center gap-3">
+            <span className="rounded-sm bg-red-600 px-2 py-1 text-xs font-bold tracking-wide text-white">
+              RMIT
+            </span>
+            <span className="text-sm text-zinc-400">University</span>
+          </div>
+          <div className="flex items-center gap-2">
+            <MicrosoftLogo />
+            <span className="text-sm font-medium text-zinc-200">Microsoft</span>
+          </div>
         </div>
         <div className="relative flex flex-1 items-center justify-center">
           <SocNetworkVisual />
@@ -90,17 +93,23 @@ export default function SignInPage() {
       {/* Right panel — Analyst Portal auth card */}
       <div className="flex flex-1 items-center justify-center px-6 py-12 sm:px-10">
         <div className="w-full max-w-md space-y-6">
-          {/* Mobile-only compact branding, shown when the network visual is hidden */}
-          <div className="flex items-center gap-3 lg:hidden">
-            <span className="rounded-sm bg-red-600 px-2 py-1 text-xs font-bold tracking-wide text-white">
-              RMIT
-            </span>
-            <span className="text-sm text-zinc-400">University</span>
-          </div>
-
-          <div className="flex items-center gap-2">
-            <MicrosoftLogo />
-            <span className="text-sm font-medium text-zinc-200">Microsoft</span>
+          {/* Mobile-only compact branding + network visual, shown when the left panel is hidden */}
+          <div className="lg:hidden">
+            <div className="flex items-center justify-between">
+              <div className="flex items-center gap-3">
+                <span className="rounded-sm bg-red-600 px-2 py-1 text-xs font-bold tracking-wide text-white">
+                  RMIT
+                </span>
+                <span className="text-sm text-zinc-400">University</span>
+              </div>
+              <div className="flex items-center gap-2">
+                <MicrosoftLogo />
+                <span className="text-sm font-medium text-zinc-200">Microsoft</span>
+              </div>
+            </div>
+            <div className="mx-auto mt-4 w-48 sm:w-56">
+              <SocNetworkVisual />
+            </div>
           </div>
 
           <div className="space-y-3">
@@ -239,14 +248,11 @@ export default function SignInPage() {
             <span className="text-zinc-500">AUS-EAST-1</span>
           </div>
 
-          <p className="flex items-start gap-1.5 text-center text-xs text-zinc-500">
-            <ShieldAlert className="mt-0.5 h-3.5 w-3.5 shrink-0" aria-hidden="true" />
-            <span>
-              Access restricted to registered analysts.{' '}
-              <Link href="/auth/signup" className="font-medium text-sky-400 hover:underline">
-                Request access
-              </Link>
-            </span>
+          <p className="text-center text-sm text-zinc-500">
+            Don&apos;t have an account?{' '}
+            <Link href="/auth/signup" className="font-medium text-sky-400 hover:underline">
+              Create new account
+            </Link>
           </p>
         </div>
       </div>

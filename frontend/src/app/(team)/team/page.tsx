@@ -315,7 +315,7 @@ const teamMembers: TeamMember[] = [
     name: 'Ansh Anand Parekh',
     role: 'BA',
     blurb:
-      'Ansh is the Business Analyst on the RMIT × Microsoft team, supporting requirements gathering, stakeholder communication and alignment between project goals and user needs.',
+      "Hi, I'm Ansh Anand Parekh, a final-year Computer Science student at RMIT University and the Business Analyst on the RMIT × Microsoft team. I'm passionate about translating business needs into clear technical requirements and making sure what we build actually solves the right problem for the people using it. I aspire to grow into a Business Analyst role within cybersecurity or cloud technology, helping bridge the gap between technical teams and real-world security impact.",
     photo: '/teamPhotos/Ansh.jpg',
       initials: 'AP',
   },
